@@ -8,20 +8,18 @@ describe('Monitor', function () {
       let source = {
         test: ''
       }
-      var evt = {}
       let inst = new Monitor({
         key: 'test',
         interval: 50,
         onchange: function (val) {
-          evt = val
+          expect(val.newValue).to.equal(url)
+          done()
         }
       })
       inst.start()
       var value = 'test'
       window.location.hash = value
       var url = window.location.host + value
-      expect(evt.newValue).to.equal(url)
-      done()
       source.test = value
     })
   })

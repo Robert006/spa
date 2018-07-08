@@ -31,13 +31,24 @@ export function rest (option) {
     return ret
   }
   return function (context, next) {
-    var req = context.request
-    req.restParam = getParams(req.pathname)
-    if (req.hash) {
-      var hash = new URL(req.hash.substr(1), req.origin)
-      context.hash = hash
-      hash.restParam = getParams(hash.pathname)
+    // var req = context.request
+    // req.restParam = getParams(req.pathname)
+    // if (req.hash) {
+    //   var hash = new URL(req.hash.substr(1), req.origin)
+    //   context.hash = hash
+    //   hash.restParam = getParams(hash.pathname)
+    // }
+    this.exec = function (context) {
+      // overwrite request by hash
+      let req = context.request
+      let hash = new URL(
+        req.hash.substr(1),
+        req.origin
+      )
+      context.request = hash
+      hash.restParams = getParams(
+        hash.pathname
+      )
     }
-    next()
   }
 }
