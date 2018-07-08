@@ -1,6 +1,6 @@
 import {
   Monitor
-} from '@/js/Monitor.js'
+} from '@/js/monitor.js'
 
 describe('Monitor', function () {
   describe('#start', function () {
